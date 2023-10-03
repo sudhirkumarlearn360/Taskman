@@ -1,5 +1,7 @@
 *.log
 
+*__pycache__
+
 *.py[codt]
 
 # C extensions
@@ -65,9 +67,6 @@ Pipfile.lock
 #Test Files
 test_*.txt
 
-learn360/settings/local.py
-learn360/settings/prelocal.py
-learn360/deploy/settings/local.py
 
 # collect static output directory
 /assets/
