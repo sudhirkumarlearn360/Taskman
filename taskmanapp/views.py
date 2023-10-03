@@ -143,22 +143,14 @@ def task_incomplete(request):
 @login_required(login_url='login')
 def task_sort(request):
     try:
- 
         order = request.POST.get('order')
         sort_by = request.POST.get('sort_by')
-        print(order)
-        print(sort_by)
-
         if order is not None:
             request.session['order'] = order
             request.session['sort_by'] = sort_by
         else:
             order = request.session.get('order')
             sort_by = request.session.get('sort_by')
-
-
-        print(order)
-        print(sort_by)
         if sort_by not in ['task_name', 'deadline', 'added_on','is_completed']:
             sort_by = 'task_name'
 
@@ -173,5 +165,4 @@ def task_sort(request):
             user_task_list = user_task_list.order_by(f'-{sort_by}').values()
         return JsonResponse({'status': 'Save' ,'user_task_list':list(user_task_list)})
     except Exception as e:
-        print(e)
         return JsonResponse({'status': '0'})
