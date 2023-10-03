@@ -1,0 +1,25 @@
+{% extends 'taskmanapp/base.jinja' %} {% block content %}
+
+
+<div>
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+                
+         <label >Email:</label> <input type="email" name="email" autofocus autocapitalize="none" autocomplete="email" maxlength="150" required id="id_email">  <br><br>
+        
+         <label >Password:</label> <input type="password" name="password" autocomplete="current-password" required id="id_password">  <br><br>
+        
+        <input  class="btn btn-primary"  type="submit" value="Login">
+    </form>
+
+    {% if messages %}
+    {% for message in messages %}
+    <small {% if message.tags %} class="{{message.tags}}" {% endif %}> {{message}} </small>
+    {% endfor %}
+    {% endif %}
+
+</form> 
+<br>
+<a class="btn btn-primary" href="{% url 'signup' %}">Signup</a>
+</div>
+{% endblock content %}

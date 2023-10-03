@@ -1,0 +1,109 @@
+{% extends 'taskmanapp/base.jinja' %} {% block content %}
+
+<div>
+  <h2>Welcome {{name}}</h2>
+  {% if messages %}
+  {% for message in messages %}
+  <small {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</small>
+  {% endfor %}
+  {% endif %}
+
+
+
+
+
+  <br>
+  <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+  <br>
+  <br>
+
+  <button type="button" id="task_add" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+   Add Task</button>
+  
+  <a href="{% url 'activity' %}" class="btn btn-info">All Activity</a>
+
+
+</div>
+
+<div class="container">
+
+  <div id="task_list" style="display:none">
+    <h1>Your Task List</h1>
+    <div class="container">
+      <div class="btn-group my-2" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradiob" id="btnradio1" value="task_name" autocomplete="off"
+          checked>
+        <label class="btn btn-outline-info" for="btnradio1">Title</label>
+
+        <input type="radio" class="btn-check" name="btnradiob" id="btnradio2" value="deadline" autocomplete="off">
+        <label class="btn btn-outline-info" for="btnradio2">Deadline</label>
+
+        <input type="radio" class="btn-check" name="btnradiob" id="btnradio3" value="added_on" autocomplete="off">
+        <label class="btn btn-outline-info" for="btnradio3">Created on</label>
+
+        <input type="radio" class="btn-check" name="btnradiob" id="btnradio4" value="is_completed" autocomplete="off">
+        <label class="btn btn-outline-info" for="btnradio4">Task Status</label>
+
+      </div>
+
+      <div class="btn-group my-2" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradioa" id="btnradioa1" value="asc" autocomplete="off" checked>
+        <label class="btn btn-outline-info" for="btnradioa1">ASC</label>
+
+        <input type="radio" class="btn-check" name="btnradioa" id="btnradioa2" value="desc" autocomplete="off">
+        <label class="btn btn-outline-info" for="btnradioa2">DESC</label>
+
+      </div>
+
+      <table class="table table-dark" id="table_all">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Task Name</th>
+            <th scope="col">Deadline Date</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id='table1'>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id='no_task_list'>
+    <h4 class="text-center alert alert-warning">No Records</h4>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form id="modal_form" action="" method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <p class="er">{{error}}</p>
+            {% endfor %}
+            {% endif %}
+            {% for fm in form %}
+            {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} <br><br>
+            {% endfor %}
+        </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id='task_save' class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% endblock content %}
