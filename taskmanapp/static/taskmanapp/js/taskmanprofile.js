@@ -213,9 +213,9 @@ function show_table(task, output) {
 }
 
 function ajaxcall() {
-    let csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
     console.log('CALLING')
-
+    
+    let csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
     
     $.post("/task-sort/", 
     {
@@ -252,7 +252,7 @@ $(document).ready(function () {
                 order: $('input:radio[name="btnradioa"]:checked').val(),
                 csrfmiddlewaretoken: csrfmiddlewaretoken
             },
-            function (data, status) {
+            function (data) {
                 if (data.status == 'Save') {
                     output = '';
                     task = data.user_task_list;
